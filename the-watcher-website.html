@@ -245,5 +245,21 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 <script>
 const style=document.createElement('style');style.textContent='@media(max-width:650px){.navlinks.mobile-open{display:flex;position:absolute;top:70px;left:0;right:0;z-index:20;background:var(--bg3);padding:22px 24px;flex-direction:column;gap:20px;border-bottom:1px solid var(--line2)}}';document.head.appendChild(style);
 </script>
+<script>
+/* Visitor counter. Sends ONE anonymous page view to your dashboard: no cookies, no tracking across sites, and the
+   visitor's IP address is never stored. To switch it on, paste your dashboard address between the quotes below, e.g.
+   'https://your-dashboard.vercel.app/api/track'. Leave it empty and nothing is sent.
+   To stop counting your own visits, open your website once with #notrack on the end (yoursite.com/#notrack) on each of your devices. */
+(function () {
+  var TRACK_URL = 'https://watcher-dashboard-three.vercel.app/api/track';
+  try {
+    if (location.hash === '#notrack') localStorage.setItem('wd-ignore', '1');
+    if (!TRACK_URL || localStorage.getItem('wd-ignore') === '1' || navigator.doNotTrack === '1' || navigator.webdriver) return;
+    var body = JSON.stringify({ p: location.pathname, r: document.referrer });
+    if (navigator.sendBeacon) navigator.sendBeacon(TRACK_URL, body);
+    else fetch(TRACK_URL, { method: 'POST', body: body, keepalive: true, mode: 'no-cors' });
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
